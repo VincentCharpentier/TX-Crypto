@@ -2,6 +2,5 @@ build
 dist
 lib
 nbproject
-test
 build.xml
 manifest.mf
