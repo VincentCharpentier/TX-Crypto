@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package tx.Model;
+package tx.model;
 
 import java.util.LinkedList;
 
