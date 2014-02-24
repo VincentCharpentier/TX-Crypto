@@ -7,6 +7,7 @@
 package tx.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import static tx.model.Constantes.ALPHABET_SIZE;
@@ -121,5 +122,17 @@ public class HistoFreq {
      */
     private int indexOf(final Character car) {
         return car.charValue() - 'A';
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Character getMostFreqChar() {
+        if (!upToDate) {
+            maj();
+        }
+        int index = freq.indexOf(Collections.max(freq));
+        return Character.valueOf((char)('A' + index));
     }
 }
