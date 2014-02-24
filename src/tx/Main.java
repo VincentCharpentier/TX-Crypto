@@ -27,7 +27,14 @@ public class Main {
 "Une tradition romantique fait de Napoléon l'archétype du grand homme appelé à bouleverser le monde. C'est ainsi que le comte de Las Cases, auteur du Mémorial de Sainte-Hélène tenta de présenter Napoléon au parlement britannique dans une pétition rédigée en 18183. Élie Faure, dans son ouvrage Napoléon, qui a inspiré Abel Gance, le compare à un « prophète des temps modernes ». D'autres auteurs, tel Victor Hugo, font du vaincu de Sainte-Hélène le « Prométhée moderne ». L'ombre de « Napoléon le Grand » plane sur de nombreux ouvrages de Balzac, Stendhal, Musset, mais aussi de Dostoïevski, de Tolstoï et de bien d'autres encore. Par ailleurs, un courant politique français émerge au xixe siècle, le bonapartisme, se revendiquant de l'action et du mode de gouvernement de Napoléon.";
         String cle = "ADTEC";
         String code = encode(test, cle);
-        System.out.println("result : " + Cryptanalyse.guessKey(code));
+        System.out.println("Texte encodé : " + code);
+
+        double t1 = System.currentTimeMillis();
+        String guess_key = Cryptanalyse.guessKey(code);
+        double t2 = System.currentTimeMillis();
+        System.out.println("Temps de cryptanalyse : "+(t2-t1)+"ms");
+        System.out.println("result : " + guess_key);
+        System.out.println("Texte décodé : " + decode(code, guess_key));
     }
 
 
