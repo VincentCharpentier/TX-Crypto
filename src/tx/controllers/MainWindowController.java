@@ -24,16 +24,19 @@ import tx.model.Vigenere;
 public class MainWindowController implements Initializable {
 
     @FXML
-    private TextArea outputTextField;
+    private TextArea cryptAndDecryptOutputTextField;
 
     @FXML
     private Button cryptButton;
 
     @FXML
-    private TextArea inputTextField;
+    private TextArea analysisInputTextField;
     
     @FXML
     private TextField key;
+    
+    @FXML
+    private TextArea cryptAndDecryptInputTextField;
     
     /**
      * Initializes the controller class.
@@ -45,12 +48,12 @@ public class MainWindowController implements Initializable {
     
     @FXML
     private void decryptButtonPressed(ActionEvent e) {
-        outputTextField.setText(Vigenere.decode(inputTextField.getText(), key.getText()));
+        cryptAndDecryptOutputTextField.setText(Vigenere.decode(cryptAndDecryptInputTextField.getText(), key.getText()));
     }
     
     @FXML
     private void cryptButtonPressed(ActionEvent event) {
-        outputTextField.setText(Vigenere.encode(inputTextField.getText(), key.getText()));
+        cryptAndDecryptOutputTextField.setText(Vigenere.encode(cryptAndDecryptInputTextField.getText(), key.getText()));
     }
     
 }
