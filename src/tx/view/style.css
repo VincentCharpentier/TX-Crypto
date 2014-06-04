@@ -1,0 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 mars 2014, 20:59:21
+    Author     : vincetn
+*/
+
+.separator .line {
+    -fx-background-color: #444;
+    -fx-border-color:  transparent derive(-fx-background,-20%) transparent transparent;
+}
+
+.linechart.default-color0.chart-series-line { -fx-stroke: #aaa; }

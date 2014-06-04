@@ -9,6 +9,7 @@ package tx.model;
 import java.util.LinkedList;
 import java.util.List;
 import static tx.model.Constantes.ALPHABET_SIZE;
+import static tx.model.Constantes.KEY_MAX_LENGTH;
 
 /**
  *
@@ -16,8 +17,8 @@ import static tx.model.Constantes.ALPHABET_SIZE;
  */
 public class Cryptanalyse {
 
-    private static int MAX_HISTO = 10;
-    private static double INDICE_FR = 0.0778;
+    public static final double INDICE_FR = 0.0778;
+    public static final double INDICE_EN = 0.0667;
 
     public static int findBetterInd() {
 
@@ -30,13 +31,13 @@ public class Cryptanalyse {
      * @return
      */
     public static int AutoFindKeyLength(String source){
-        List<List<HistoFreq>> all = new LinkedList<>();
+        //List<List<HistoFreq>> all = new LinkedList<>();
 
         int best = -1;
         double best_value = Double.MAX_VALUE;
-        for (int i = 1; i <= MAX_HISTO; i++) {
+        for (int i = 1; i <= KEY_MAX_LENGTH; i++) {
             List<HistoFreq> list = makeAllHisto(source, i);
-            all.add(list);
+            //all.add(list);
             double value = Math.abs(indiceMoyen(list) - INDICE_FR);
             if (value < best_value) {
                 best = i;
@@ -96,12 +97,15 @@ public class Cryptanalyse {
 
     public static String guessKey(String src) {
         int keyLength = AutoFindKeyLength(src);
-        List<HistoFreq> histos = makeAllHisto(src, keyLength);
-        StringBuilder key = new StringBuilder();
-        for (int i = 0; i < keyLength; i++) {
-            key.append((char)('A' + shiftNumber(histos.get(i))));
-        }
+        return guessKey(src, keyLength);
+    }
 
+    public static String guessKey(String src, int keyLength) {
+        List<HistoFreq> histos = makeAllHisto(src, keyLength);
+        final StringBuilder key = new StringBuilder();
+        for (int i = 0; i < keyLength; i++) {
+            key.append((char) ('A' + shiftNumber(histos.get(i))));
+        }
         return key.toString();
     }
 
