@@ -35,6 +35,7 @@ public class Main {
         System.out.println("Temps de cryptanalyse : "+(t2-t1)+"ms");
         System.out.println("result : " + guess_key);
         System.out.println("Texte décodé : " + decode(code, guess_key));
+
     }
 
 

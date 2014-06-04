@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="511.0" prefWidth="970.0" style="-fx-background-color: #aaf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tx.view.CryptoViewController">
+  <children>
+    <GridPane layoutX="2.0" layoutY="5.0" prefHeight="506.0" prefWidth="465.0">
+      <children>
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <children>
+            <Label text="MODE :" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <font>
+                <Font name="System Bold" size="17.0" fx:id="x2" />
+              </font>
+            </Label>
+            <RadioButton mnemonicParsing="false" selected="false" text="Manuel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <toggleGroup>
+                <ToggleGroup fx:id="mode" />
+              </toggleGroup>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" selected="true" text="Automatique" toggleGroup="$mode" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="155.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="231.0" minWidth="0.0" prefWidth="157.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="153.0" minWidth="0.0" prefWidth="153.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="153.0" minWidth="0.0" prefWidth="153.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="153.0" minWidth="0.0" prefWidth="153.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="3">
+          <children>
+            <Button mnemonicParsing="false" prefWidth="79.0" text="Fichier..." GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button mnemonicParsing="false" prefWidth="79.0" text="Coller" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <TextArea fx:id="encodedText" prefWidth="200.0" promptText="Saisissez votre texte encodé ici." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <GridPane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+          <children>
+            <Label text="Langue :" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <font>
+                <Font size="14.0" fx:id="x1" />
+              </font>
+            </Label>
+            <ChoiceBox id="test" fx:id="langues" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <items>
+                <FXCollections fx:factory="observableArrayList" />
+              </items>
+            </ChoiceBox>
+            <Button mnemonicParsing="false" prefWidth="79.0" text="GUESS" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="67.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.0" minWidth="10.0" prefWidth="153.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="154.0" minWidth="0.0" prefWidth="101.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="144.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="6">
+          <children>
+            <Label text="Indice de coîncidence de référence de cette langue :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="indiceLangue" text="___" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="288.0" minWidth="10.0" prefWidth="284.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="232.0" minWidth="10.0" prefWidth="181.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Separator prefWidth="469.0" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <GridPane prefHeight="97.0" prefWidth="465.0" GridPane.columnIndex="0" GridPane.rowIndex="8">
+          <children>
+            <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+              <children>
+                <Label text="Taille de la clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <children>
+                    <TextField id="keySize" fx:id="keySizeText" onKeyPressed="#onKeySizeChange" prefHeight="21.0" prefWidth="39.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <Button fx:id="minButton" disable="false" mnemonicParsing="false" onAction="#onMin" text="-" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Button fx:id="plusButton" mnemonicParsing="false" onAction="#onPlus" text="+" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <Button mnemonicParsing="false" onAction="#onGuessKeySize" prefWidth="79.0" text="GUESS" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="90.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="85.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="15.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="85.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="190.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <GridPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+              <children>
+                <Label text="Indice de coïncidence moyen calculé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="indiceMoyen" onInputMethodTextChanged="#onKeySizeChange" text="___" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="208.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="102.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="155.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <GridPane GridPane.columnIndex="0" GridPane.rowIndex="3">
+              <children>
+                <Label text="Clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="keyText" text="A" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button mnemonicParsing="false" onAction="#onGuessKey" prefWidth="79.0" text="GUESS" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="30.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="138.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="148.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="149.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <Label font="$x2" text="Clé" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="131.0" minHeight="8.0" prefHeight="18.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="137.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="117.0" minHeight="9.0" prefHeight="21.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="115.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+          <children>
+            <Label font="$x2" layoutX="188.0" layoutY="2.0" text="Texte encodé" />
+          </children>
+        </Pane>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="173.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="155.0" minHeight="6.0" prefHeight="23.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="155.0" minHeight="6.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="284.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="150.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="159.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <Separator layoutX="465.0" layoutY="0.0" orientation="VERTICAL" prefHeight="511.0" />
+    <GridPane layoutX="468.0" layoutY="0.0" prefHeight="511.0" prefWidth="502.0">
+      <children>
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <Label font="$x2" text="SHIFTS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <LineChart id="LineChart" fx:id="shift" GridPane.columnIndex="0" GridPane.rowIndex="2">
+          <xAxis>
+            <CategoryAxis side="BOTTOM"/>
+          </xAxis>
+          <yAxis>
+            <NumberAxis side="LEFT" lowerBound="0" upperBound="100"/>
+          </yAxis>
+        </LineChart>
+        <TextArea prefWidth="200.0" promptText="Le résultat apparaitra ici" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label font="$x2" text="Résultat" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="255.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
+</AnchorPane>
