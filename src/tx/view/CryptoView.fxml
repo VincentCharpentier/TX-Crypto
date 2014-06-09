@@ -39,23 +39,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="3">
-          <children>
-            <Button mnemonicParsing="false" prefWidth="79.0" text="Fichier..." GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Button mnemonicParsing="false" prefWidth="79.0" text="Coller" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-          </children>
-          <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
-        <TextArea fx:id="encodedText" prefWidth="200.0" promptText="Saisissez votre texte encodé ici." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <GridPane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <TextArea fx:id="encodedText" prefWidth="200.0" promptText="Saisissez votre texte encodé ici." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <GridPane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
           <children>
             <Label text="Langue :" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <font>
@@ -79,7 +64,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="6">
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="5">
           <children>
             <Label text="Indice de coîncidence de référence de cette langue :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <Label fx:id="indiceLangue" text="___" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -93,8 +78,8 @@
           </rowConstraints>
         </GridPane>
         <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Separator prefWidth="469.0" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-        <GridPane prefHeight="97.0" prefWidth="465.0" GridPane.columnIndex="0" GridPane.rowIndex="8">
+        <Separator prefWidth="469.0" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <GridPane prefHeight="97.0" prefWidth="465.0" GridPane.columnIndex="0" GridPane.rowIndex="7">
           <children>
             <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
               <children>
@@ -141,22 +126,6 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane GridPane.columnIndex="0" GridPane.rowIndex="3">
-              <children>
-                <Label text="Clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Label fx:id="keyText" text="A" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <Button mnemonicParsing="false" onAction="#onGuessKey" prefWidth="79.0" text="GUESS" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-              </children>
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="30.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="138.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="148.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="149.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
             <Label font="$x2" text="Clé" GridPane.columnIndex="0" GridPane.rowIndex="0" />
           </children>
           <columnConstraints>
@@ -172,6 +141,7 @@
         <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
           <children>
             <Label font="$x2" layoutX="188.0" layoutY="2.0" text="Texte encodé" />
+            <Button layoutX="372.0" layoutY="2.0" mnemonicParsing="false" onAction="#pasteText" prefWidth="79.0" text="Coller" />
           </children>
         </Pane>
       </children>
@@ -182,7 +152,6 @@
         <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="173.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="155.0" minHeight="6.0" prefHeight="23.0" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="155.0" minHeight="6.0" prefHeight="28.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="284.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="150.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
@@ -191,29 +160,89 @@
       </rowConstraints>
     </GridPane>
     <Separator layoutX="465.0" layoutY="0.0" orientation="VERTICAL" prefHeight="511.0" />
-    <GridPane layoutX="468.0" layoutY="0.0" prefHeight="511.0" prefWidth="502.0">
+    <GridPane layoutX="467.0" layoutY="0.0" prefHeight="511.0" prefWidth="502.0">
       <children>
+        <Label font="$x2" text="SHIFTS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextArea fx:id="decodedText" prefWidth="200.0" promptText="Le résultat apparaitra ici" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Label font="$x2" text="Résultat" GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+          <children>
+            <Label text="Clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Label fx:id="keyText" text="A" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <font>
+                <Font name="System Bold" size="20.0" />
+              </font>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#onGuessKey" prefWidth="79.0" text="GUESS" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+          </children>
           <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="138.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="148.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="149.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <Label font="$x2" text="SHIFTS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <LineChart id="LineChart" fx:id="shift" GridPane.columnIndex="0" GridPane.rowIndex="2">
-          <xAxis>
-            <CategoryAxis side="BOTTOM"/>
-          </xAxis>
-          <yAxis>
-            <NumberAxis side="LEFT" lowerBound="0" upperBound="100"/>
-          </yAxis>
-        </LineChart>
-        <TextArea prefWidth="200.0" promptText="Le résultat apparaitra ici" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-        <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <Label font="$x2" text="Résultat" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <GridPane alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
+          <children>
+            <Button fx:id="prevHistoButton" mnemonicParsing="false" onAction="#onPrevHisto" text="&lt;&lt;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button fx:id="nextHistoButton" mnemonicParsing="false" onAction="#onNextHisto" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <children>
+                <Label text="comparatif" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Label text="/" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <Label fx:id="comparTot" text="0" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                <Label fx:id="comparNo" minWidth="2.9998779296875" prefWidth="37.0" text="0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="72.0" minWidth="8.0" prefWidth="8.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="87.0" minWidth="10.0" prefWidth="65.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.0" minWidth="10.0" prefWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="72.0" minWidth="8.0" prefWidth="19.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="91.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="43.0" minWidth="10.0" prefWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="213.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="39.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="125.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="125.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <GridPane GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+          <children>
+            <LineChart id="shift" fx:id="diagramme" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis lowerBound="0.0" side="LEFT" upperBound="100.0" />
+              </yAxis>
+            </LineChart>
+            <Button mnemonicParsing="false" onAction="#moreShift" prefHeight="212.0" prefWidth="30.0" text="&lt;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <Button mnemonicParsing="false" onAction="#lessShift" prefHeight="212.0" prefWidth="29.000099999997474" text="&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="39.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.0" minWidth="10.0" prefWidth="425.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="38.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <Button mnemonicParsing="false" onAction="#decode" prefWidth="227.0" text="Décoder" GridPane.columnIndex="0" GridPane.rowIndex="7" />
       </children>
       <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -221,8 +250,8 @@
       <rowConstraints>
         <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="286.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="255.0" valignment="CENTER" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="420.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="0.0" prefHeight="23.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="420.0" minHeight="0.0" prefHeight="260.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="420.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />

@@ -39,7 +39,7 @@ public class SimpleText {
      * @param src chaine à transformer
      * @return chaine transformée
      */
-    private String format(String src) {
+    public static String format(String src) {
         // il reste des caractères spéciaux mais bon, les principaux y sont.
         src = src.replaceAll("[ÈËÊÉëéèê]", "E");
         src = src.replaceAll("[âäàåáÄÅ]", "A");

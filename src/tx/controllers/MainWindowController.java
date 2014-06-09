@@ -31,29 +31,29 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private TextArea analysisInputTextField;
-    
+
     @FXML
     private TextField key;
-    
+
     @FXML
     private TextArea cryptAndDecryptInputTextField;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
     @FXML
     private void decryptButtonPressed(ActionEvent e) {
-        cryptAndDecryptOutputTextField.setText(Vigenere.decode(cryptAndDecryptInputTextField.getText(), key.getText()));
+        cryptAndDecryptOutputTextField.setText(Vigenere.decode(cryptAndDecryptInputTextField.getText(), key.getText(), 0));
     }
-    
+
     @FXML
     private void cryptButtonPressed(ActionEvent event) {
         cryptAndDecryptOutputTextField.setText(Vigenere.encode(cryptAndDecryptInputTextField.getText(), key.getText()));
     }
-    
+
 }

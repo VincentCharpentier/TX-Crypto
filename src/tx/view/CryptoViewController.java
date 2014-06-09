@@ -6,7 +6,14 @@
 
 package tx.view;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -14,16 +21,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import tx.model.Constantes;
 import static tx.model.Constantes.KEY_MAX_LENGTH;
 import tx.model.Cryptanalyse;
 import tx.model.HistoFreq;
+import tx.model.SimpleText;
+import tx.model.Vigenere;
 import static tx.model.Vigenere.encode;
 
 /**
@@ -36,45 +45,79 @@ public class CryptoViewController implements Initializable {
     @FXML
     private TextField keySizeText;
 
-    private int keySize = 1;
+    private int keySize;
 
     @FXML
     private Label keyText;
 
-    private String key = "A";
+    private String key;
 
     @FXML
     private TextArea encodedText;
     @FXML
+    private TextArea decodedText;
+    @FXML
     private Label indiceMoyen;
+    @FXML
+    private Label comparNo;
+    @FXML
+    private Label comparTot;
     @FXML
     private ChoiceBox langues;
     @FXML
     private Button minButton;
     @FXML
     private Button plusButton;
+    @FXML
+    private Button prevHistoButton;
+    @FXML
+    private Button nextHistoButton;
 
     @FXML
     private Label indiceLangue;
 
+
+    /**
+     * Un histoFreq pour chaque lettre de la clé.
+     */
     private List<HistoFreq> listHisto;
 
+    /**
+     * Un shift (valeur de décalage) pour chaque histogramme.
+     */
+    private List<Integer> listShift;
+
+    //private final List<XYChart.Series> listSeries = new ArrayList<>();
+
+    /**
+     * Histogramme actuellement affiché (indice dans listHisto).
+     */
+    private int currentHisto;
+
+    /**
+     * La série de donnée frequement modifiée dans le graphe.
+     */
+    private XYChart.Series serie;
+
     @FXML
-    private LineChart<Number,Number> shift;
+    private LineChart<Number,Number> diagramme;
 
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String test = "Napoléon Ier, né le 15 août 1769 à Ajaccio en Corse, dans le royaume de France, et mort le 5 mai 1821 sur l'île Sainte-Hélène, dans l'océan Atlantique, est le premier empereur des Français, du 18 mai 1804 au 6 avril 1814 et du 20 mars 1815 au 22 juin 1815. Second enfant de Charles Bonaparte et Letitia Ramolino, Napoléon Bonaparte est d'abord un militaire, général dans les armées de la Première République française, née de la Révolution, commandant en chef de l'armée d'Italie puis de l'armée d'Orient. Il parvient au pouvoir en 1799 par le coup d'État du 18 brumaire et est Premier consul jusqu'au 2 août 1802, puis consul à vie jusqu'au 18 mai 1804, date à laquelle il est proclamé empereur par un sénatus-consulte suivi d'un plébiscite. Enfin il est sacré empereur en la cathédrale Notre-Dame de Paris le 2 décembre 1804 par le pape Pie VII." +
-"En tant que général en chef et chef d'état, Napoléon tente de briser les coalitions montées et financées par le Royaume de Grande-Bretagne et qui rassemblent depuis 1792 les monarchies européennes contre la France et son régime né de la Révolution. Il conduit pour cela les armées françaises d'Italie au Nil et d'Autriche à la Prusse et à la Pologne : ses nombreuses et brillantes victoires (Arcole, Rivoli, Pyramides, Marengo, Austerlitz, Iéna, Friedland), dans des campagnes militaires rapides, disloquent les quatre premières coalitions. Les paix successives, qui mettent un terme à chacune de ces coalitions, renforcent la France et donnent à son chef, Napoléon, un degré de puissance jusqu'alors rarement égalé en Europe lors de la paix de Tilsit (1807)." +
-"Il réorganise et réforme durablement l'État et la société. Il porte le territoire français à son extension maximale avec 134 départements en 1812, transformant Rome, Hambourg, Barcelone ou Amsterdam en chefs-lieux de départements français. Il est aussi président de la République italienne de 1802 à 1805, puis roi d’Italie de 1805 à 1814, mais également médiateur de la Confédération suisse de 1803 à 1813 et protecteur de la Confédération du Rhin de 1806 à 1813. Ses victoires lui permettent d'annexer à la France de vastes territoires et de gouverner la majeure partie de l’Europe continentale en plaçant les membres de sa famille sur les trônes de plusieurs royaumes : Joseph sur celui de Naples puis d'Espagne, Louis sur celui de Hollande, Jérôme sur celui de Westphalie et son beau-frère Joachim Murat à Naples. Il crée également un duché de Varsovie, sans oser restaurer formellement l'indépendance polonaise, et soumet temporairement à son influence des puissances vaincues telles que le Royaume de Prusse et l'Empire d'Autriche." +
-"Objet, dès son vivant, d'une légende dorée comme d'une légende noire, il doit sa très grande notoriété à son habileté militaire, récompensée par de très nombreuses victoires, et à sa trajectoire politique étonnante1, mais aussi à son régime despotique et très centralisé ainsi qu'à son ambition qui se traduit par des guerres d'agression très meurtrières (au Portugal, en Espagne et en Russie) avec des centaines de milliers de morts et blessés, militaires et civils pour l'ensemble de l'Europe. Il tente également de renforcer le régime colonial français d'Ancien Régime en outre-mer, en rétablissant en particulier l'esclavage en 1802 ce qui provoque la guerre de Saint-Domingue (1802-1803) et la perte définitive de cette colonie, tandis que les britanniques s'assurent le contrôle de toutes les autres colonies entre 1803 et 1810. Cet ennemi britannique toujours invaincu s'obstinant à financer des coalitions de plus en plus générales, les Alliés finissent par remporter des succès décisifs en Espagne (bataille de Vitoria) et en Allemagne (bataille de Leipzig) en 1813. L’intransigeance de Napoléon devant ces sanglants revers lui fait perdre le soutien de pans entiers de la nation française2 tandis que ses anciens alliés ou vassaux se retournent contre lui. Amené à abdiquer en 1814 après la prise de Paris, capitale de l'Empire français, et à se retirer à l'île d'Elbe, il tente de reprendre le pouvoir en France lors de l'épisode des Cent-Jours en 1815. Capable de reconquérir son empire sans coup férir, il amène pourtant la France dans une impasse devant sa mise au ban de l'Europe, avec la lourde défaite de Waterloo qui met fin à l'Empire napoléonien et assure la restauration de la dynastie des Bourbons. Sa mort en exil à Sainte-Hélène sous la garde des Anglais, fait l'objet de nombreuses controverses." +
-"Une tradition romantique fait de Napoléon l'archétype du grand homme appelé à bouleverser le monde. C'est ainsi que le comte de Las Cases, auteur du Mémorial de Sainte-Hélène tenta de présenter Napoléon au parlement britannique dans une pétition rédigée en 18183. Élie Faure, dans son ouvrage Napoléon, qui a inspiré Abel Gance, le compare à un « prophète des temps modernes ». D'autres auteurs, tel Victor Hugo, font du vaincu de Sainte-Hélène le « Prométhée moderne ». L'ombre de « Napoléon le Grand » plane sur de nombreux ouvrages de Balzac, Stendhal, Musset, mais aussi de Dostoïevski, de Tolstoï et de bien d'autres encore. Par ailleurs, un courant politique français émerge au xixe siècle, le bonapartisme, se revendiquant de l'action et du mode de gouvernement de Napoléon.";
-        String cle = "ADTEC";
-        encodedText.setText(encode(test, cle));
+        keySize = 1;
+        listShift = new ArrayList();
+        listShift.add(0);
+        serie = new XYChart.Series();
+        updateKeyText();
+        updateKeySizeText();
+
+        serie.setName("Calculé");
 
         langues.getItems().add("Français");
         langues.getItems().add("Anglais");
@@ -89,47 +132,28 @@ public class CryptoViewController implements Initializable {
                         onLangueChange();
                     }
                 });
-        keySizeText.setText(String.valueOf(keySize));
-        updateKeyText();
 
-        //defining the axes
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
+
 
         //xAxis.setLabel("Number of Month");
         //shift = new LineChart<Number, Number>(xAxis, yAxis);
-        shift.setTitle("Shift");
+        diagramme.setTitle("Comparatif des occurences");
         //defining a series
-        XYChart.Series series = new XYChart.Series();
-        series.setName("My portfolio");
+        XYChart.Series ref = new XYChart.Series();
+        ref.setName("Reference");
         //populating the series with data
-        series.getData().add(new XYChart.Data("A", 5));
-        series.getData().add(new XYChart.Data("B", 23));
-        series.getData().add(new XYChart.Data("C", 14));
-        series.getData().add(new XYChart.Data("D", 15));
-        series.getData().add(new XYChart.Data("E", 24));
-        series.getData().add(new XYChart.Data("F", 34));
-        series.getData().add(new XYChart.Data("G", 36));
-        series.getData().add(new XYChart.Data("H", 22));
-        series.getData().add(new XYChart.Data("I", 45));
-        series.getData().add(new XYChart.Data("J", 43));
-        series.getData().add(new XYChart.Data("K", 17));
-        series.getData().add(new XYChart.Data("L", 29));
-        series.getData().add(new XYChart.Data("M", 25));
-        series.getData().add(new XYChart.Data("N", 5));
-        series.getData().add(new XYChart.Data("O", 23));
-        series.getData().add(new XYChart.Data("P", 14));
-        series.getData().add(new XYChart.Data("Q", 15));
-        series.getData().add(new XYChart.Data("R", 24));
-        series.getData().add(new XYChart.Data("S", 34));
-        series.getData().add(new XYChart.Data("T", 36));
-        series.getData().add(new XYChart.Data("U", 25));
-        series.getData().add(new XYChart.Data("V", 22));
-        series.getData().add(new XYChart.Data("W", 45));
-        series.getData().add(new XYChart.Data("X", 43));
-        series.getData().add(new XYChart.Data("Y", 17));
-        series.getData().add(new XYChart.Data("Z", 29));
-        shift.getData().add(series);
+        for (int i = 0; i < 26; i++) {
+            ref.getData().add(new XYChart.Data(
+                    Character.toString((char)('A'+i)),
+                    Constantes.diagFR.get(i)));
+        }
+        diagramme.getData().add(ref);
+        diagramme.getData().add(serie);
+
+        updateHistoDisplay();
+        updatePrevText();
+
+        minButton.setDisable(true);
 
     }
 
@@ -147,10 +171,21 @@ public class CryptoViewController implements Initializable {
 
     }
 
+    /**
+     * mettre à jour l'affichage de la clé.
+     */
     private void updateKeyText() {
+        final StringBuilder buff = new StringBuilder(keySize);
+        for (int i = 0; i < keySize; i++) {
+            buff.append((char) ('A' + listShift.get(i)));
+        }
+        key = buff.toString();
         keyText.setText(key);
     }
 
+    /**
+     * met à jour l'affichage de la taille de la clé.
+     */
     private void updateKeySizeText() {
         keySizeText.setText(String.valueOf(keySize));
         onKeySizeChange();
@@ -161,21 +196,44 @@ public class CryptoViewController implements Initializable {
         keySize = Cryptanalyse.AutoFindKeyLength(encodedText.getText());
         if (keySize < currentSize) {
             key = key.substring(0, keySize);
+            for (int i = currentSize; i < keySize; i--) {
+                listShift.remove(i);
+            }
         } else {
             if (keySize > currentSize) {
                 for (int i = currentSize; i < keySize; i++) {
                     key = key + 'A';
+                    listShift.add(0);
                 }
             }
         }
         updateKeySizeText();
         updateKeyText();
+        updatePrevText();
     }
 
     public void onKeySizeChange() {
-        listHisto = Cryptanalyse.makeAllHisto(encodedText.getText(),
-                Integer.decode(keySizeText.getText()));
+        listHisto = Cryptanalyse.makeAllHisto(encodedText.getText(),keySize);
         updateIndiceMoyen();
+        updatePlusMinButtons();
+        currentHisto = 0;
+        comparTot.setText("" + keySize);
+        updateHistoDisplay();
+    }
+
+    /**
+     * Activer / desactiver bouttons +/- en fontion de la taille de clé.
+     */
+    public void updatePlusMinButtons() {
+        plusButton.setDisable(false);
+        minButton.setDisable(false);
+        if (keySize < 2) {
+            minButton.setDisable(true);
+        } else {
+            if (keySize > KEY_MAX_LENGTH - 1) {
+                plusButton.setDisable(true);
+            }
+        }
     }
 
 
@@ -183,51 +241,175 @@ public class CryptoViewController implements Initializable {
      * Augmenter la taille de la clé de 1.
      */
     public final void onPlus() {
-        if (keySize < KEY_MAX_LENGTH) {
-            minButton.setDisable(false);
-            keySize++;
-            key = key + 'A';
-            updateKeyText();
-            updateKeySizeText();
-            if (keySize == KEY_MAX_LENGTH) {
-                plusButton.setDisable(true);
-            }
-        }
+        keySize++;
+        key = key + 'A';
+        listShift.add(0);
+        updateKeyText();
+        updateKeySizeText();
     }
 
     /**
      * Diminuer la taille de la clé de 1.
      */
     public void onMin() {
-        if (keySize > 1) {
-            plusButton.setDisable(false);
-            keySize--;
-            key = key.substring(0, keySize);
-            updateKeyText();
-            updateKeySizeText();
-            if (keySize == 1) {
-                minButton.setDisable(true);
-            }
-        }
+        keySize--;
+        key = key.substring(0, keySize);
+        listShift.remove(keySize);
+        updateKeyText();
+        updateKeySizeText();
     }
+/*
+    public void onHistoUpdate() {
+        listSeries.clear();
 
+        for(HistoFreq histo : listHisto) {
+            XYChart.Series serie = new XYChart.Series();
+            //populating the series with data
+            for (int i = 0; i < 26; i++) {
+                char c = (char)('A'+i);
+                serie.getData().add(new XYChart.Data(
+                        Character.toString(c),
+                        histo.getFreq(c)*100));
+            }
+            listSeries.add(serie);
+        }
+
+        currentHisto = 0;
+        updateHistoDisplay();
+    }
+*/
     /**
      * Nombre de chiffre après la virgule.
      */
     private static int INDICE_DETAIL = 5;
 
     private void updateIndiceMoyen() {
+        String result = String.valueOf(
+                        Cryptanalyse.indiceMoyen(listHisto));
 
-        indiceMoyen.setText(
-                String.valueOf(
-                        Cryptanalyse.indiceMoyen(listHisto)
-                ).substring(0, INDICE_DETAIL + 2));
+        if (result.length() > INDICE_DETAIL + 2) {
+            result = result.substring(0, INDICE_DETAIL + 2);
+        }
+        indiceMoyen.setText(result);
+
     }
 
     @FXML
     private void onGuessKey() {
-        key = Cryptanalyse.guessKey(encodedText.getText(), keySize);
+        key = Cryptanalyse.guessKey(listHisto, keySize);
+        final int length = key.length();
+        for (int i = 0; i < length; i++) {
+            listShift.set(i, key.charAt(i) - 'A');
+        }
         updateKeyText();
+        updateHistoDisplay();
+        updatePrevText();
     }
 
+    public void onNextHisto() {
+        if (currentHisto < keySize - 1) {
+            currentHisto++;
+        }
+        updateHistoDisplay();
+    }
+
+    public void onPrevHisto() {
+        if (currentHisto > 0) {
+            currentHisto--;
+        }
+        updateHistoDisplay();
+    }
+
+    /**
+     * augmenter le shift courant de 1.
+     */
+    public final void moreShift() {
+        final int value = (listShift.get(currentHisto) + 1)
+                % Constantes.ALPHABET_SIZE;
+        listShift.set(currentHisto, value);
+        onShiftUpdated();
+    }
+
+    /**
+     * diminuer le shift courant de 1.
+     */
+    public final void lessShift() {
+        int value = (listShift.get(currentHisto) - 1)
+                % Constantes.ALPHABET_SIZE;
+        if (value < 0) {
+            value += Constantes.ALPHABET_SIZE;
+        }
+        listShift.set(currentHisto, value);
+        onShiftUpdated();
+    }
+
+    public final void onShiftUpdated() {
+        updateKeyText();
+        updateHistoDisplay();
+        updatePrevText();
+    }
+
+
+
+    /**
+     * met à jour le diagramme de l'inteface.
+     */
+    private void updateHistoDisplay() {
+        prevHistoButton.setDisable(false);
+        nextHistoButton.setDisable(false);
+        if (currentHisto < 1) {
+            prevHistoButton.setDisable(true);
+        }
+
+        if (currentHisto > keySize - 2) {
+            nextHistoButton.setDisable(true);
+        }
+
+        comparNo.setText("" + (currentHisto + 1));
+
+        serie.getData().clear();
+        final HistoFreq histo = listHisto.get(currentHisto);
+        final int shift = listShift.get(currentHisto);
+
+        //populating the series with data
+        for (int i = 0; i < Constantes.ALPHABET_SIZE; i++) {
+            final char ref = (char) ('A' + i);
+            final char charac =
+                    (char) ('A' + ((i + shift) % Constantes.ALPHABET_SIZE));
+            serie.getData().add(new XYChart.Data(
+                    Character.toString(ref),
+                    histo.getFreq(charac) * 100));
+        }
+    }
+
+
+    private void updatePrevText() {
+        decodedText.setText(Vigenere.decode(encodedText.getText(), key, 100) + "...");
+    }
+
+    public void decode() {
+        decodedText.setText(Vigenere.decode(encodedText.getText(), key, 0));
+    }
+
+    public void pasteText() {
+        encodedText.setText(SimpleText.format(getClipboardContents()));
+    }
+
+    private String getClipboardContents() {
+        String result = "";
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        //odd: the Object param of getContents is not currently used
+        Transferable contents = clipboard.getContents(null);
+        boolean hasTransferableText = (contents != null) && contents.isDataFlavorSupported(DataFlavor.stringFlavor);
+        if (hasTransferableText) {
+            try {
+                result = (String)contents.getTransferData(DataFlavor.stringFlavor);
+            }
+            catch (UnsupportedFlavorException | IOException ex){
+                System.out.println(ex);
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

@@ -109,4 +109,11 @@ public class Cryptanalyse {
         return key.toString();
     }
 
+    public static String guessKey(List<HistoFreq> histos, int keyLength) {
+        final StringBuilder key = new StringBuilder();
+        for (int i = 0; i < keyLength; i++) {
+            key.append((char) ('A' + shiftNumber(histos.get(i))));
+        }
+        return key.toString();
+    }
 }
