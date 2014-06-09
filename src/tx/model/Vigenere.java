@@ -53,16 +53,21 @@ public final class Vigenere {
      * Décodage d'une chaine donnée avec une clé donnée.
      * @param origin texte à décoder
      * @param key clé à utiliser
+     * @param limit nombre de caractères max à décoder
      * @return texte décodé
      */
-    public static String decode(final String origin, final String key) {
+    public static String decode(final String origin, final String key, int limit) {
+        boolean unlimited = true;
+        if (limit > 0) {
+            unlimited = false;
+        }
         final StringBuilder resultBuf = new StringBuilder();
         final LinkedList<Character> src = (LinkedList) preprocess(origin);
 
         final int mod = key.length();
         int index = -1;
 
-        while (!src.isEmpty()) {
+        while (!src.isEmpty() && (unlimited || limit > 0)) {
             index = (index + 1) % mod;
             final Character current = src.pop();
             // 1 - on retire la valeur 'A' a chaque caractere (source et cle)
@@ -75,6 +80,10 @@ public final class Vigenere {
                 alphaIndex += ALPHABET_SIZE;
             }
             resultBuf.append((char) (alphaIndex + 'A'));
+            
+            if (!unlimited) {
+                limit--;
+            }
         }
         return resultBuf.toString();
     }

@@ -125,7 +125,7 @@ public class HistoFreq {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public Character getMostFreqChar() {
