@@ -6,54 +6,44 @@
 
 package tx.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import tx.model.Vigenere;
+import javafx.scene.layout.Pane;
+import tx.TXCrypto;
 
 /**
  * FXML Controller class
  *
- * @author jbmartin
+ * @author vincetn
  */
 public class MainWindowController implements Initializable {
 
     @FXML
-    private TextArea cryptAndDecryptOutputTextField;
-
+    private Button chiffreDechiffreButton;
     @FXML
-    private Button cryptButton;
-
-    @FXML
-    private TextArea analysisInputTextField;
-
-    @FXML
-    private TextField key;
-
-    @FXML
-    private TextArea cryptAndDecryptInputTextField;
+    private Button cryptanalyseButton;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
-    private void decryptButtonPressed(ActionEvent e) {
-        cryptAndDecryptOutputTextField.setText(Vigenere.decode(cryptAndDecryptInputTextField.getText(), key.getText(), 0));
+    private void showChiffreDechiffre() {
+        TXCrypto.gotoChiffrerDechiffrer();
     }
 
     @FXML
-    private void cryptButtonPressed(ActionEvent event) {
-        cryptAndDecryptOutputTextField.setText(Vigenere.encode(cryptAndDecryptInputTextField.getText(), key.getText()));
+    private void showCrypto() {
+        TXCrypto.gotoCrypto();
     }
 
 }

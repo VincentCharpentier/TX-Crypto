@@ -4,31 +4,17 @@
  * and open the template in the editor.
  */
 
-package tx.model;
+package tx.models;
 
-import java.util.LinkedList;
 
 /**
  *
  * @author vincetn
  */
-public class SimpleText {
+public class KeyHandler {
 
-    /**
-     * Texte en String.
-     */
-    private String text = "";
+    private KeyHandler() {}
 
-    private LinkedList<Character> list = new LinkedList<Character>();
-
-    /**
-     * Contructeur.
-     * @param textArg le texte qui sera contenu et traité
-     */
-    public SimpleText(final String textArg) {
-        text = format(textArg);
-        list = stringToList(text);
-    }
 
     /**
      * Formatter une chaine de caractère.
@@ -39,7 +25,7 @@ public class SimpleText {
      * @param src chaine à transformer
      * @return chaine transformée
      */
-    public static String format(String src) {
+    public static String filterText(String src) {
         // il reste des caractères spéciaux mais bon, les principaux y sont.
         src = src.replaceAll("[ÈËÊÉëéèê]", "E");
         src = src.replaceAll("[âäàåáÄÅ]", "A");
@@ -56,28 +42,5 @@ public class SimpleText {
         // retrait de tout ce qui n'est pas une lettre
         src = src.replaceAll("[^ABCDEFGHIJKLMNOPQRSTUVWXYZ]", "");
         return src;
-    }
-
-    /**
-     * Créer une liste de caractères à partir d'une String.
-     * @param src String d'origine
-     * @return Liste des caractères de la chaine
-     */
-    private LinkedList<Character> stringToList(String src) {
-        final LinkedList<Character> result = new LinkedList<>();
-        int i = src.length() - 1;
-        while (i >= 0) {
-            result.push(src.charAt(i));
-            i--;
-        }
-        return result;
-    }
-
-    public LinkedList<Character> getList() {
-        return list;
-    }
-
-    public String getText() {
-        return text;
     }
 }

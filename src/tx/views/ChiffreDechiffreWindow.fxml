@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="695.0" style="-fx-background-color: #aaf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tx.controllers.ChiffreDechiffreWindowController">
+  <children>
+    <GridPane disable="false" layoutX="14.0" layoutY="13.0" prefHeight="414.0" prefWidth="667.0">
+      <children>
+        <Label text="Résultat :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Label text="Texte à crypter / décrypter :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextArea id="cryptAndDecryptInputTextField" fx:id="inputTextField" onKeyReleased="#onInputChanged" prefHeight="-1.0" prefWidth="-1.0" promptText="Saisissez un texte à chiffrer ou à déchiffrer..." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+          <children>
+            <Label text="Clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField id="key" fx:id="keyText" onAction="#onKeyChanged" onKeyReleased="#onKeyChanged" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Button fx:id="cryptButton" mnemonicParsing="false" onAction="#cryptButtonPressed" prefHeight="26.0" prefWidth="96.0" text="Chiffrer" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <Button fx:id="decryptButton" mnemonicParsing="false" onAction="#decryptButtonPressed" prefHeight="26.0" prefWidth="96.0" text="Déchiffrer" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="2.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="498.0" minWidth="10.0" prefWidth="169.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="16.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="110.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="221.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="476.0" minWidth="10.0" prefWidth="119.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <TextArea id="cryptAndDecryptOutputTextField" fx:id="outputTextField" disable="false" editable="false" focusTraversable="false" prefHeight="221.0" prefWidth="733.0" promptText="Votre résultat apparaitra ici." visible="true" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <Pane prefHeight="52.0" prefWidth="705.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+          <children>
+            <Button id="exitButton" layoutX="309.0" layoutY="0.0" mnemonicParsing="false" onAction="#exit" prefHeight="33.951271874997474" prefWidth="81.0" text="Accueil">
+              <font>
+                <Font name="System Bold" size="15.0" />
+              </font>
+            </Button>
+          </children>
+        </Pane>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="148.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="276.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="41.0" valignment="CENTER" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </children>
+</AnchorPane>

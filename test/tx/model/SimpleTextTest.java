@@ -6,6 +6,7 @@
 
 package tx.model;
 
+import tx.models.SimpleText;
 import java.util.Iterator;
 import java.util.LinkedList;
 import org.junit.After;

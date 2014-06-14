@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package tx.view;
+package tx.views;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

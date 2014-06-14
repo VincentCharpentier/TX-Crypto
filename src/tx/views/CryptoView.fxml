@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="511.0" prefWidth="970.0" style="-fx-background-color: #aaf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tx.view.CryptoViewController">
+<AnchorPane id="AnchorPane" prefHeight="554.0000999999975" prefWidth="970.0" style="-fx-background-color: #aaf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tx.controllers.CryptoViewController">
   <children>
     <GridPane layoutX="2.0" layoutY="5.0" prefHeight="506.0" prefWidth="465.0">
       <children>
@@ -171,7 +171,7 @@
             <Label text="Clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <Label fx:id="keyText" text="A" GridPane.columnIndex="1" GridPane.rowIndex="0">
               <font>
-                <Font name="System Bold" size="20.0" />
+                <Font name="System Bold" size="20.0" fx:id="x3" />
               </font>
             </Label>
             <Button mnemonicParsing="false" onAction="#onGuessKey" prefWidth="79.0" text="GUESS" GridPane.columnIndex="3" GridPane.rowIndex="0" />
@@ -222,7 +222,7 @@
         </GridPane>
         <GridPane GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
           <children>
-            <LineChart id="shift" fx:id="diagramme" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <LineChart fx:id="diagramme" GridPane.columnIndex="1" GridPane.rowIndex="0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -258,6 +258,8 @@
         <RowConstraints maxHeight="420.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
+    <Button font="$x3" layoutX="310.0" layoutY="516.0" minHeight="25.0" mnemonicParsing="false" onAction="#exit" prefHeight="34.0" prefWidth="314.0" text="Accueil" />
+    <Separator layoutX="0.0" layoutY="511.0" prefWidth="969.0" />
   </children>
   <stylesheets>
     <URL value="@style.css" />

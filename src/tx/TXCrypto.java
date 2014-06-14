@@ -6,8 +6,11 @@
 
 package tx;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,15 +20,47 @@ import javafx.stage.Stage;
  * @author jbmartin
  */
 public class TXCrypto extends Application {
-    
+
+    private Stage stage;
+    private static TXCrypto instance;
+
+    public TXCrypto() {
+        instance = this;
+    }
+
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("views/MainWindow.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            stage = primaryStage;
+            gotoAccueil();
+            primaryStage.show();
+        } catch (Exception ex) {
+            Logger.getLogger(TXCrypto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void gotoAccueil() {
+        try {
+            instance.replaceSceneContent("views/MainWindow.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(TXCrypto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void gotoChiffrerDechiffrer() {
+        try {
+            instance.replaceSceneContent("views/ChiffreDechiffreWindow.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(TXCrypto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void gotoCrypto() {
+        try {
+            instance.replaceSceneContent("views/CryptoView.fxml");
+        } catch (Exception ex) {
+            Logger.getLogger(TXCrypto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -39,5 +74,19 @@ public class TXCrypto extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
+    private Parent replaceSceneContent(String fxml) throws Exception {
+        Parent page = (Parent) FXMLLoader.load(TXCrypto.class.getResource(fxml), null, new JavaFXBuilderFactory());
+        Scene scene = stage.getScene();
+        if (scene == null) {
+            scene = new Scene(page);
+            //scene.getStylesheets().add(App.class.getResource("demo.css").toExternalForm());
+            stage.setScene(scene);
+        } else {
+            stage.getScene().setRoot(page);
+        }
+        stage.sizeToScene();
+        return page;
+    }
+
 }
