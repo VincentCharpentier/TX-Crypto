@@ -6,9 +6,9 @@
 
 package tx;
 
-import tx.model.Cryptanalyse;
-import static tx.model.Vigenere.decode;
-import static tx.model.Vigenere.encode;
+import tx.models.Cryptanalyse;
+import static tx.models.Vigenere.decode;
+import static tx.models.Vigenere.encode;
 
 /**
  *

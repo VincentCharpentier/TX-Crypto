@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package tx.model;
+package tx.models;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
-package tx.model;
+package tx.models;
 
 import java.util.LinkedList;
 import java.util.List;
-import static tx.model.Constantes.ALPHABET_SIZE;
+import static tx.models.Constantes.ALPHABET_SIZE;
 
 /**
  *

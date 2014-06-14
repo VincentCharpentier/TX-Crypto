@@ -1,102 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="759.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tx.controllers.MainWindowController">
-   <children>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-        <tabs>
-          <Tab text="Crypter/décrypter">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox prefHeight="317.0" prefWidth="713.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                           <children>
-                              <Label text="Texte à crypter / décrypter :" />
-                              <TextArea fx:id="cryptAndDecryptInputTextField" prefHeight="227.0" prefWidth="733.0" />
-                              <GridPane VBox.vgrow="ALWAYS">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="136.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="120.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="236.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
-                                       <children>
-                                          <Button fx:id="cryptButton" layoutX="170.0" layoutY="2.0" mnemonicParsing="false" onAction="#cryptButtonPressed" prefHeight="26.0" prefWidth="96.0" text="Crypter" textAlignment="CENTER" />
-                                          <Button layoutX="25.0" layoutY="1.0" mnemonicParsing="false" onAction="#decryptButtonPressed" prefHeight="26.0" prefWidth="96.0" text="Décrypter" />
-                                       </children>
-                                    </Pane>
-                                    <TextField fx:id="key" GridPane.rowIndex="2" />
-                                    <Label text="Clé :" GridPane.rowIndex="1" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </GridPane>
-                              <Label text="Résultat :" />
-                              <TextArea fx:id="cryptAndDecryptOutputTextField" editable="false" prefHeight="221.0" prefWidth="733.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Cryptanalyse">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox layoutX="111.0" layoutY="104.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                           <children>
-                              <Label text="Texte à analyser :" />
-                              <TextArea fx:id="analysisInputTextField" prefHeight="152.0" prefWidth="693.0" />
-                              <GridPane>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Cryptanalyse" GridPane.halignment="RIGHT">
-                                       <GridPane.margin>
-                                          <Insets top="5.0" />
-                                       </GridPane.margin>
-                                    </Button>
-                                 </children>
-                              </GridPane>
-                              <BarChart>
-                                <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis side="LEFT" />
-                                </yAxis>
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
-                              </BarChart>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+<AnchorPane id="AnchorPane" prefHeight="251.0" prefWidth="288.0" style="-fx-background-color: #aaf;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tx.controllers.MainWindowController">
+  <children>
+    <GridPane layoutX="1.0" layoutY="14.0" prefHeight="223.0" prefWidth="288.0">
+      <children>
+        <Label text="Chiffre de Vigenere" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font name="System Bold" size="25.0" />
+          </font>
+        </Label>
+        <Button mnemonicParsing="false" onAction="#showChiffreDechiffre" text="Chiffrer / Déchiffrer" GridPane.columnIndex="0" GridPane.rowIndex="2">
+          <font>
+            <Font size="20.0" fx:id="x1" />
+          </font>
+        </Button>
+        <Button font="$x1" mnemonicParsing="false" onAction="#showCrypto" text="Cryptanalyse" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <Separator prefWidth="288.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
 </AnchorPane>

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package tx.view;
+package tx.controllers;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -27,13 +27,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import tx.model.Constantes;
-import static tx.model.Constantes.KEY_MAX_LENGTH;
-import tx.model.Cryptanalyse;
-import tx.model.HistoFreq;
-import tx.model.SimpleText;
-import tx.model.Vigenere;
-import static tx.model.Vigenere.encode;
+import tx.TXCrypto;
+import tx.models.Constantes;
+import static tx.models.Constantes.KEY_MAX_LENGTH;
+import tx.models.Cryptanalyse;
+import tx.models.HistoFreq;
+import tx.models.KeyHandler;
+import tx.models.SimpleText;
+import tx.models.Vigenere;
+import static tx.models.Vigenere.encode;
 
 /**
  * FXML Controller class
@@ -368,6 +370,7 @@ public class CryptoViewController implements Initializable {
         comparNo.setText("" + (currentHisto + 1));
 
         serie.getData().clear();
+        XYChart.Series newSerie = new XYChart.Series();
         final HistoFreq histo = listHisto.get(currentHisto);
         final int shift = listShift.get(currentHisto);
 
@@ -376,9 +379,12 @@ public class CryptoViewController implements Initializable {
             final char ref = (char) ('A' + i);
             final char charac =
                     (char) ('A' + ((i + shift) % Constantes.ALPHABET_SIZE));
-            serie.getData().add(new XYChart.Data(
+            newSerie.getData().add(new XYChart.Data(
                     Character.toString(ref),
                     histo.getFreq(charac) * 100));
+        }
+        if (diagramme.getData().size() > 1) {
+            diagramme.getData().set(1,newSerie);
         }
     }
 
@@ -392,7 +398,7 @@ public class CryptoViewController implements Initializable {
     }
 
     public void pasteText() {
-        encodedText.setText(SimpleText.format(getClipboardContents()));
+        encodedText.setText(KeyHandler.filterText(getClipboardContents()));
     }
 
     private String getClipboardContents() {
@@ -411,5 +417,12 @@ public class CryptoViewController implements Initializable {
             }
         }
         return result;
+    }
+
+
+
+    @FXML
+    private void exit() {
+        TXCrypto.gotoAccueil();
     }
 }
