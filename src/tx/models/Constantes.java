@@ -38,6 +38,19 @@ public final class Constantes {
                     0.308, 0.136));
 
     /**
+     * Diagramme de frequence d'apparition des lettre en anglais.
+     */
+    public static final List<Double> diagEN =
+            new ArrayList<>(Arrays.asList(
+                    8.08, 7.38, 1.67, 7.47,
+                    3.18, 1.91, 3.99, 0.09,
+                    12.56, 6.42, 2.17, 6.59,
+                    1.80, 9.15, 5.27, 2.79,
+                    7.24, 1.00, 0.14, 1.89,
+                    0.63, 0.21, 4.04, 1.65,
+                    2.60, 0.07));
+
+    /**
      * Constructeur privée pour empécher l'instanciation.
      */
     private Constantes() { }
