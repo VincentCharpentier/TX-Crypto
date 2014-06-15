@@ -24,6 +24,7 @@
         </Button>
         <Button font="$x1" mnemonicParsing="false" onAction="#showCrypto" text="Cryptanalyse" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <Separator prefWidth="288.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label text="Vincent CHARPENTIER - Jean-Baptiste MARTIN" GridPane.columnIndex="0" GridPane.rowIndex="4" />
       </children>
       <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,7 +34,7 @@
         <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="205.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="31.0" valignment="BOTTOM" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
   </children>

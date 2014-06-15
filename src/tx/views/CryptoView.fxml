@@ -16,17 +16,17 @@
       <children>
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
           <children>
-            <Label text="MODE :" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label disable="true" text="MODE :" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <font>
                 <Font name="System Bold" size="17.0" fx:id="x2" />
               </font>
             </Label>
-            <RadioButton mnemonicParsing="false" selected="false" text="Manuel" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <RadioButton disable="true" mnemonicParsing="false" selected="true" text="Manuel" underline="false" GridPane.columnIndex="1" GridPane.rowIndex="0">
               <toggleGroup>
                 <ToggleGroup fx:id="mode" />
               </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" selected="true" text="Automatique" toggleGroup="$mode" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <RadioButton disable="true" mnemonicParsing="false" selected="false" text="Automatique" toggleGroup="$mode" GridPane.columnIndex="2" GridPane.rowIndex="0" />
           </children>
           <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="155.0" />
@@ -39,7 +39,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-        <TextArea fx:id="encodedText" prefWidth="200.0" promptText="Saisissez votre texte encodé ici." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextArea fx:id="encodedText" onKeyReleased="#onInputChanged" prefWidth="200.0" promptText="Saisissez votre texte encodé ici." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="3" />
         <GridPane GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
           <children>
             <Label text="Langue :" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -52,7 +52,7 @@
                 <FXCollections fx:factory="observableArrayList" />
               </items>
             </ChoiceBox>
-            <Button mnemonicParsing="false" prefWidth="79.0" text="GUESS" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <Button disable="true" mnemonicParsing="false" prefWidth="79.0" text="GUESS" GridPane.columnIndex="2" GridPane.rowIndex="0" />
           </children>
           <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="67.0" />
@@ -86,7 +86,7 @@
                 <Label text="Taille de la clé :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="0">
                   <children>
-                    <TextField id="keySize" fx:id="keySizeText" onKeyPressed="#onKeySizeChange" prefHeight="21.0" prefWidth="39.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                    <TextField id="keySize" fx:id="keySizeText" editable="false" onKeyPressed="#onKeySizeChange" prefHeight="21.0" prefWidth="39.0" text="1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                     <Button fx:id="minButton" disable="false" mnemonicParsing="false" onAction="#onMin" text="-" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <Button fx:id="plusButton" mnemonicParsing="false" onAction="#onPlus" text="+" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                   </children>
@@ -163,7 +163,7 @@
     <GridPane layoutX="467.0" layoutY="0.0" prefHeight="511.0" prefWidth="502.0">
       <children>
         <Label font="$x2" text="SHIFTS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextArea fx:id="decodedText" prefWidth="200.0" promptText="Le résultat apparaitra ici" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <TextArea fx:id="decodedText" editable="false" prefWidth="200.0" promptText="Le résultat apparaitra ici" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="6" />
         <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4" />
         <Label font="$x2" text="Résultat" GridPane.columnIndex="0" GridPane.rowIndex="5" />
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -180,7 +180,7 @@
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="30.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="138.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="148.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="149.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="204.0" minWidth="10.0" prefWidth="149.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

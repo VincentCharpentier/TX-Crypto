@@ -92,15 +92,15 @@ public class VigenereTest {
         System.out.println("decode");
 
         String key = "A";
-        String result = Vigenere.decode(CLAIR, key);
+        String result = Vigenere.decode(CLAIR, key, 0);
         assertEquals("Should be the same as encoded (A-KEY)", CLAIR, result);
 
         key = "Z";
-        result = Vigenere.decode(CHIFFRE_Z, key);
+        result = Vigenere.decode(CHIFFRE_Z, key, 0);
         assertEquals("Error, should be the alphabet (Z-KEY)", CLAIR, result);
 
         key = "AZ";
-        result = Vigenere.decode(CHIFFRE_AZ, key);
+        result = Vigenere.decode(CHIFFRE_AZ, key, 0);
         assertEquals("Error, should be the alphabet (AZ-KEY)", CLAIR, result);
     }
 

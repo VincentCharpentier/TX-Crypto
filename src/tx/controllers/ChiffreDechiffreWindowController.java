@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import tx.TXCrypto;
 import tx.models.KeyHandler;
@@ -56,21 +57,25 @@ public class ChiffreDechiffreWindowController implements Initializable {
         this.outputTextField.setText("");
     }
 
-    public void onKeyChanged(final KeyEvent keyEvent) {
-        keyText.setText(KeyHandler.filterText(keyText.getText()));
-        keyText.positionCaret(keyText.getText().length());
-        if (keyText.getText().equals("")) {
-            this.cryptButton.setDisable(true);
-            this.decryptButton.setDisable(true);
-        } else {
-            this.cryptButton.setDisable(false);
-            this.decryptButton.setDisable(false);
+    public void onKeyChanged(final KeyEvent event) {
+        if (!event.isControlDown() && event.getCode() != KeyCode.CONTROL) {
+            keyText.setText(KeyHandler.filterText(keyText.getText()));
+            keyText.positionCaret(keyText.getText().length());
+            if (keyText.getText().equals("")) {
+                this.cryptButton.setDisable(true);
+                this.decryptButton.setDisable(true);
+            } else {
+                this.cryptButton.setDisable(false);
+                this.decryptButton.setDisable(false);
+            }
         }
     }
 
-    public void onInputChanged(final KeyEvent keyEvent) {
-        inputTextField.setText(KeyHandler.filterText(inputTextField.getText()));
-        inputTextField.positionCaret(inputTextField.getText().length());
+    public void onInputChanged(final KeyEvent event) {
+        if (!event.isControlDown() && event.getCode() != KeyCode.CONTROL) {
+            inputTextField.setText(KeyHandler.filterText(inputTextField.getText()));
+            inputTextField.positionCaret(inputTextField.getText().length());
+        }
     }
 
     @FXML

@@ -16,10 +16,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -27,15 +29,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import tx.TXCrypto;
 import tx.models.Constantes;
 import static tx.models.Constantes.KEY_MAX_LENGTH;
 import tx.models.Cryptanalyse;
 import tx.models.HistoFreq;
 import tx.models.KeyHandler;
-import tx.models.SimpleText;
 import tx.models.Vigenere;
-import static tx.models.Vigenere.encode;
 
 /**
  * FXML Controller class
@@ -78,6 +80,9 @@ public class CryptoViewController implements Initializable {
     @FXML
     private Label indiceLangue;
 
+    @FXML
+    private TextArea input;
+
 
     /**
      * Un histoFreq pour chaque lettre de la clé.
@@ -98,9 +103,9 @@ public class CryptoViewController implements Initializable {
 
     /**
      * La série de donnée frequement modifiée dans le graphe.
-     */
+     *//*
     private XYChart.Series serie;
-
+*/
     @FXML
     private LineChart<Number,Number> diagramme;
 
@@ -115,10 +120,10 @@ public class CryptoViewController implements Initializable {
         keySize = 1;
         listShift = new ArrayList();
         listShift.add(0);
-        serie = new XYChart.Series();
+
         updateKeyText();
         updateKeySizeText();
-
+        XYChart.Series serie = new XYChart.Series();
         serie.setName("Calculé");
 
         langues.getItems().add("Français");
@@ -155,22 +160,42 @@ public class CryptoViewController implements Initializable {
         updateHistoDisplay();
         updatePrevText();
 
+        langues.getSelectionModel().select(0);
         minButton.setDisable(true);
 
     }
 
     private void onLangueChange() {
         final int selected = langues.getSelectionModel().getSelectedIndex();
+        XYChart.Series ref = diagramme.getData().get(0);
+        ref.getData().clear();
         switch (selected) {
             // FR
             case 0:
                 indiceLangue.setText(String.valueOf(Cryptanalyse.INDICE_FR));
+
+                //populating the series with data
+                for (int i = 0; i < 26; i++) {
+                    ref.getData().add(new XYChart.Data(
+                            Character.toString((char)('A'+i)),
+                            Constantes.diagFR.get(i)));
+                }
+                break;
+            // EN
+            case 1:
+                indiceLangue.setText(String.valueOf(Cryptanalyse.INDICE_EN));
+
+                //populating the series with data
+                for (int i = 0; i < 26; i++) {
+                    ref.getData().add(new XYChart.Data(
+                            Character.toString((char)('A'+i)),
+                            Constantes.diagEN.get(i)));
+                }
                 break;
             default:
                 indiceLangue.setText("NOT IMPLEMENTED");
                 break;
         }
-
     }
 
     /**
@@ -348,7 +373,6 @@ public class CryptoViewController implements Initializable {
     public final void onShiftUpdated() {
         updateKeyText();
         updateHistoDisplay();
-        updatePrevText();
     }
 
 
@@ -369,8 +393,9 @@ public class CryptoViewController implements Initializable {
 
         comparNo.setText("" + (currentHisto + 1));
 
-        serie.getData().clear();
+        //serie.getData().clear();
         XYChart.Series newSerie = new XYChart.Series();
+        newSerie.setName("Calculé");
         final HistoFreq histo = listHisto.get(currentHisto);
         final int shift = listShift.get(currentHisto);
 
@@ -386,6 +411,8 @@ public class CryptoViewController implements Initializable {
         if (diagramme.getData().size() > 1) {
             diagramme.getData().set(1,newSerie);
         }
+
+        updatePrevText();
     }
 
 
@@ -399,6 +426,9 @@ public class CryptoViewController implements Initializable {
 
     public void pasteText() {
         encodedText.setText(KeyHandler.filterText(getClipboardContents()));
+        listHisto = Cryptanalyse.makeAllHisto(encodedText.getText(),keySize);
+        updateIndiceMoyen();
+        updateHistoDisplay();
     }
 
     private String getClipboardContents() {
@@ -420,9 +450,18 @@ public class CryptoViewController implements Initializable {
     }
 
 
-
     @FXML
     private void exit() {
         TXCrypto.gotoAccueil();
+    }
+
+    public void onInputChanged(final KeyEvent event) {
+        if (!event.isControlDown() && event.getCode() != KeyCode.CONTROL) {
+            encodedText.setText(KeyHandler.filterText(encodedText.getText()));
+            encodedText.positionCaret(encodedText.getText().length());
+            listHisto = Cryptanalyse.makeAllHisto(encodedText.getText(),keySize);
+            updateIndiceMoyen();
+            updateHistoDisplay();
+        }
     }
 }
