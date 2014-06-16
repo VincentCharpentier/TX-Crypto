@@ -20,15 +20,12 @@ public class Cryptanalyse {
     public static final double INDICE_FR = 0.0778;
     public static final double INDICE_EN = 0.0667;
 
-    public static int findBetterInd() {
-
-        return 0;
-    }
 
     /**
-     * pour auto
-     * @param source
-     * @return
+     * Trouvez automatiquement la taille de clé la plus probable pour un texte chiffré donné.
+     * ATTENTION: ne marche que pour un texte en français.
+     * @param source texte chiffré
+     * @return taille de clé
      */
     public static int AutoFindKeyLength(String source){
         //List<List<HistoFreq>> all = new LinkedList<>();
@@ -48,10 +45,10 @@ public class Cryptanalyse {
     }
 
     /**
-     * pour un nb de sous-alphabet donné, retourne la liste des histofreq.
-     * @param src
-     * @param nbAlpha
-     * @return
+     * Décompose le texte source en un nombre donné d'histogramme de fréquence.
+     * @param src texte à décomposer.
+     * @param nbAlpha nombre d'histogramme à produire.
+     * @return Liste d'histogramme de fréquence
      */
     public static List<HistoFreq> makeAllHisto(String src, int nbAlpha) {
         List<HistoFreq> result = new LinkedList<HistoFreq>();
@@ -68,6 +65,11 @@ public class Cryptanalyse {
         return result;
     }
 
+    /**
+     * Calcule l'indice de coïncidence moyen des histogramme de fréquences donnés.
+     * @param list Liste d'histogramme de fréquence.
+     * @return indice de coïncidence moyen.
+     */
     public static double indiceMoyen(List<HistoFreq> list) {
         double result = 0;
         int size = list.size();
@@ -79,9 +81,10 @@ public class Cryptanalyse {
 
 
     /**
-     *
-     * @param histo
-     * @return
+     * Décalage idéal pour aligner l'histogramme avec la courbe de référence.
+     * ATTENTION : uniquement pour un texte en français.
+     * @param histo histogramme à considérer.
+     * @return décalage idéal.
      */
     public static int shiftNumber(HistoFreq histo) {
         Character mostFreq = histo.getMostFreqChar();
@@ -95,11 +98,22 @@ public class Cryptanalyse {
         return shift;
     }
 
+    /**
+     * Deviner la clé du texte chiffré donné.
+     * @param src texte chiffré.
+     * @return clé.
+     */
     public static String guessKey(String src) {
         int keyLength = AutoFindKeyLength(src);
         return guessKey(src, keyLength);
     }
 
+    /**
+     * Deviner la clé du texte chiffré donné, sachant sa taille.
+     * @param src texte chiffré.
+     * @param keyLength taille de clé.
+     * @return clé.
+     */
     public static String guessKey(String src, int keyLength) {
         List<HistoFreq> histos = makeAllHisto(src, keyLength);
         final StringBuilder key = new StringBuilder();
@@ -109,6 +123,12 @@ public class Cryptanalyse {
         return key.toString();
     }
 
+    /**
+     * Deviner la clé a partir de la liste d'Histogramme donné et de la taille de clé.
+     * @param histos liste d'histogramme.
+     * @param keyLength taille de clé.
+     * @return clé.
+     */
     public static String guessKey(List<HistoFreq> histos, int keyLength) {
         final StringBuilder key = new StringBuilder();
         for (int i = 0; i < keyLength; i++) {
